@@ -175,12 +175,18 @@ Background:
  * **`background-blacken`** : Blackens the node's body for values from 0 to 1; whitens the node's body for values from 0 to -1.
  * **`background-opacity`** : The opacity level of the node's background colour.
 
+Gradient:
+ * **`background-gradient-direction`** : In case `background-color-style` is `linear-gradient`, defines the direction of the gradient.
+ * **`background-gradient-stop-1-color`** : The colour of the first gradient stop.
+ * **`background-gradient-stop-1-color`** : The colour of the second gradient stop.
+
 Border:
 
  * **`border-width`** : The size of the node's border.
  * **`border-style`** : The style of the node's border; may be `solid`, `dotted`, `dashed`, or `double`.
  * **`border-color`** : The colour of the node's border.
  * **`border-opacity`** : The opacity of the node's border.
+ * **`background-color-style`** : The colouring style of the node's body; may be `none` (default), `linear-gradient`, or `radial-gradient`.
 
 Padding:
 
@@ -278,6 +284,10 @@ These properties affect the styling of an edge's line:
  * **`line-color`** : The colour of the edge's line.
  * **`line-style`** : The style of the edge's line; may be `solid`, `dotted`, or `dashed`.
 
+## Gradient
+
+* **`line-gradient-stop-1-color`** : The colour of the first gradient stop.
+* **`line-gradient-stop-1-color`** : The colour of the second gradient stop.
 
 ## Bezier edges
 

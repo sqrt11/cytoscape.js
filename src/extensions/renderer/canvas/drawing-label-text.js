@@ -131,9 +131,9 @@ CRp.setupTextStyle = function( context, ele ){
   // so text outlines aren't jagged
   context.lineJoin = 'round';
 
-  this.fillStyle( context, color[ 0 ], color[ 1 ], color[ 2 ], opacity );
+  this.fillStyle( context, false, color[ 0 ], color[ 1 ], color[ 2 ], opacity );
 
-  this.strokeStyle( context, outlineColor[ 0 ], outlineColor[ 1 ], outlineColor[ 2 ], outlineOpacity );
+  this.strokeStyle( context, false, outlineColor[ 0 ], outlineColor[ 1 ], outlineColor[ 2 ], outlineOpacity );
 };
 
 function roundRect( ctx, x, y, width, height, radius ){

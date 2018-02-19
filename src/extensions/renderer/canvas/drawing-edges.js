@@ -27,13 +27,26 @@ CRp.drawEdge = function( context, edge, shiftToOriginWithBb, drawLabel ){
   let opacity = edge.pstyle('opacity').value;
   let lineStyle = edge.pstyle('line-style').value;
   let edgeWidth = edge.pstyle('width').pfValue;
-
+  let lineColorStyle = edge.pstyle('line-color-style').value;
+  
   let drawLine = ( strokeOpacity = opacity ) => {
     context.lineWidth = edgeWidth;
     context.lineCap = 'butt';
 
-    r.strokeStyle( context, lineColor[0], lineColor[1], lineColor[2], strokeOpacity );
-
+    if (lineColorStyle === 'linear-gradient' || lineColorStyle === 'radial-gradient') {
+      let gradientStop1Color = edge.pstyle('line-gradient-stop-1-color').value,
+      gradientStop2Color = edge.pstyle('line-gradient-stop-2-color').value;
+        r.strokeStyle(context, {
+        gradient: lineColorStyle,
+        ele: edge,
+        colors: [gradientStop1Color, gradientStop2Color],
+        opacity: strokeOpacity
+      })
+    }
+    else {
+      r.strokeStyle(context, false, lineColor[0], lineColor[1], lineColor[2], strokeOpacity);
+    }
+    
     r.drawEdgePath(
       edge,
       context,
@@ -51,7 +64,7 @@ CRp.drawEdge = function( context, edge, shiftToOriginWithBb, drawLabel ){
       context.lineCap = 'round';
     }
 
-    r.strokeStyle( context, overlayColor[0], overlayColor[1], overlayColor[2], strokeOpacity );
+    r.strokeStyle( context, false, overlayColor[0], overlayColor[1], overlayColor[2], strokeOpacity );
 
     r.drawEdgePath(
       edge,
@@ -211,8 +224,8 @@ CRp.drawArrowhead = function( context, edge, prefix, x, y, angle, opacity ){
   if( opacity !== 1 || arrowFill === 'hollow' ){ // then extra clear is needed
     context.globalCompositeOperation = 'destination-out';
 
-    self.fillStyle( context, 255, 255, 255, 1 );
-    self.strokeStyle( context, 255, 255, 255, 1 );
+    self.fillStyle( context, false, 255, 255, 255, 1 );
+    self.strokeStyle( context, false, 255, 255, 255, 1 );
 
     self.drawArrowShape( edge, prefix, context,
       arrowClearFill, edgeWidth, arrowShape, x, y, angle
@@ -222,8 +235,8 @@ CRp.drawArrowhead = function( context, edge, prefix, x, y, angle, opacity ){
   } // otherwise, the opaque arrow clears it for free :)
 
   let color = edge.pstyle( prefix + '-arrow-color' ).value;
-  self.fillStyle( context, color[0], color[1], color[2], opacity );
-  self.strokeStyle( context, color[0], color[1], color[2], opacity );
+  self.fillStyle( context, false, color[0], color[1], color[2], opacity );
+  self.strokeStyle( context, false, color[0], color[1], color[2], opacity );
 
   self.drawArrowShape( edge, prefix, context,
     arrowFill, edgeWidth, arrowShape, x, y, angle
